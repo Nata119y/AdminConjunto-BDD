@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("jacoco")
     id("net.serenity-bdd.serenity-gradle-plugin") version "5.4.2"
 }
 
@@ -30,4 +31,15 @@ tasks.test {
     useJUnit()
     ignoreFailures = true
     finalizedBy("aggregate")
+}
+jacoco {
+    toolVersion = "0.8.12"
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)
+    reports {
+        xml.required.set(true)
+        html.required.set(true)
+    }
 }
